@@ -1,0 +1,74 @@
+---
+title: Adobe Target Connection
+description: Adobe Target is an application that provides real-time 1:1 and AI-Powered personalization and experimentation in all inbound customer interactions across websites, mobile apps, and more.
+exl-id: 99700474-8bf6-4176-acc1-38814e17c995
+---
+# Adobe Target Connection {#adobe-target-connection}
+
+
+## Overview {#overview}
+
+Adobe Target is an application that provides real-time 1:1 and AI-Powered personalization and experimentation in all inbound customer interactions across websites, mobile apps, and more.
+
+Adobe Target is a personalization connection in Adobe Experience Platform.
+
+## Prerequisites {#prerequisites}
+
+This integration is powered by the Adobe Web SDK. You must be using using this SDK to use this destination.
+
+
+## Export type {#export-type}
+
+**Profile Request** - you are requesting all the segments that are mapped in the Adobe Target destination for a single profile.
+
+## Use Cases
+
+This destination shares audiences with Adobe Target to be used in real-time for deciding which offer the user should see.
+
+
+### Use Case #1
+
+*Personalizing a homepage banner:*
+
+*A home rental and sales website wants to personalize their homepage with a banner based on the customers' segment qualification in Adobe Experience Platform. The company can select what audiences should get a personalized experience and send those to Adobe Target as targeting criteria for their Target offer.*
+
+## Connect to the destination {#connect}
+
+Adobe Experience Platform will automatically connect to your company's Adobe Target instance. No need to authentic or enter any credentials.
+
+### Connection parameters {#parameters}
+
+While [setting up](https://experienceleague.adobe.com/docs/experience-platform/destinations/ui/connect-destination.html) this destination, you must provide the following information:
+
+*  **Name**: Fill in the preferred name for this destination.
+*  **Description**: Optional. For example, you can mention which campaign you are using this destination for.
+*  **Datastream ID**: This determines which Data Collection data stream the segments will be included in the response to the page. In the drop down menu you will see only datastreams that have had the destination configuration enabled.
+
+## Activate segments to this destination {#activate}
+
+Read [Activate profiles and segments to profile request](https://experienceleague.adobe.com/docs/experience-platform/destinations/ui/activate/activate-segment-streaming-destinations.html?lang=en) for instructions on activating audience segments to this destination.
+
+
+## Exported Data {#exported-data}
+
+Adobe Target reads the edge profile so no data is exported.
+
+## Data usage and governance {#data-usage-governance}
+
+All [!DNL Adobe Experience Platform] destinations are compliant with data usage policies when handling your data. For detailed information on how [!DNL Adobe Experience Platform] enforces data governance, read the [Data Governance overview](https://experienceleague.adobe.com/docs/experience-platform/data-governance/home.html).
+
+## Additional resources {#additional-resources}
+
+*You can provide further links to your product documentation or any other resources you consider important for the customer to be successful.*
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
