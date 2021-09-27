@@ -72,10 +72,16 @@ alloy("sendEvent", {
       }
     }
   }
-}).then(({ destinations }) => {
-        //Look for the integration alias corresponding to the application your want to send segments to
-        //Read the segment ids and pass them into the application's code running on the page
-    })
+}).then(function(results) {
+    if(results.destinations) { //Looking to see if the desitnation results are there
+        if(results.destinations.personlaizationAlias) {
+          //Code to pass the segment ids into the system that corresponds to personlaizationAlias
+        }
+        if(results.destinations.adServerAlias) {
+          //Code to pass the segment ids into the system that corresponds to adServerAlias
+        }
+     }
+   })
   .catch(function(error) {
     // Tracking the event failed.
   });
