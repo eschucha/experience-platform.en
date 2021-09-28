@@ -1,0 +1,108 @@
+---
+title: Custom Personalization Destination
+description: This destination provides external personalization, content management systems, ad servers, and other applications that are running on your site a way to retrive segment information from Adobe Experience Platform. This destinatination provides real-time 1:1 and personalization based on a user profile's segment membership.
+---
+# Custom Personalization Connection {#custom-personalization-connection}
+
+
+## Overview {#overview}
+
+This destination provides external personalization, content management systems, ad servers, and other applications that are running on your site a way to retrive segment information from Adobe Experience Platform. This destinatination provides real-time 1:1 and personalization based on a user profile's segment membership.
+
+## Prerequisites {#prerequisites}
+
+This integration is powered by the Adobe Web SDK. You must be using using this SDK to use this destination.
+
+
+## Export type {#export-type}
+
+**Profile Request** - you are requesting all the segments that are mapped in the custom personalization destination for a single profile. Different custom personalization destintions can be set up for different Adobe Data Collection datastreams.
+
+## Use Cases
+
+This destination shares audiences with an ad server and non-Adobe persoanlization application to be used in real-time for deciding which offer and advertising the user should see on a website.
+
+
+### Use Case #1
+
+*Personalizing a homepage:*
+
+*A home rental and sales website wants to personalize their homepage based on the customers' segment qualification in Adobe Experience Platform. The company can select what audiences should get a personalized experience and map those to the custom personalization destination that had been set up for their non-Adobe personalization application as targeting criteria.*
+
+*Targeted on-site advertising:*
+
+*Using a seperate custom personalization destination for their ad server the same website can target on-site advertising using a different set segments from Adobe Experience Platform as targeting criteria. The integration alias that is inputed during the set up of a custom personalization will be what denotes which JSON object and the segments it contains is for the ad server. More on how to set this up in the Connect to the desitnation section below.*
+
+## Connect to the destination {#connect}
+
+Integrating custom personalization personalization application is possible using details laid out below.
+
+### Connection parameters {#parameters}
+
+While [setting up](https://experienceleague.adobe.com/docs/experience-platform/destinations/ui/connect-destination.html) this destination, you must provide the following information:
+
+*  **Name**: Fill in the preferred name for this destination.
+*  **Description**: Optional. For example, you can mention which campaign you are using this destination for.
+*  **Integration alias**: What is typed into this field will be returned to the Web SDK as an object name in the JSON. 
+*  **Datastream ID**: This determines which Data Collection data stream the segments will be included in the response to the page. In the drop down menu you will see only datastreams that have had the destination configuration enabled. Vist [configuring a datastream]( [setting up](https://experienceleague.adobe.com/docs/experience-platform/destinations/ui/connect-destination.html) to learn more on this topic.
+
+## Activate segments to this destination {#activate}
+
+Read [Activate profiles and segments to profile request](https://experienceleague.adobe.com/docs/experience-platform/destinations/ui/activate/activate-segment-streaming-destinations.html?lang=en) for instructions on activating audience segments to this destination.
+
+
+## Exported Data {#exported-data}
+
+The segments a profile qualifies for will be returned to the page based on the set up of the destinations configured to be returned to the data stream and what segments have been mapped to the corresponding destinations. 
+
+If you are using Adobe Launch to deploy the Web SDK leverage the [send event complete](https://experienceleague.adobe.com/docs/experience-platform/edge/fundamentals/tracking-events.html?lang=en#handling-responses-from-events) functionality and your custom code action will have an `event.destinations` variable that you can use.
+
+If you are not using Adobe Launch to deploy the Web SDK, use the [handling responses from events](https://experienceleague.adobe.com/docs/experience-platform/edge/fundamentals/tracking-events.html?lang=en#handling-responses-from-events) functionality the JSON response from Adobe Experience Platform can be parsed to find the corresponding integration alias signifying for the application you are integrating with Adobe Experience Platform. The segment ids can be passed into the application's code as targeting parameters. Below is a sample of what this would look like specific to the destination response.
+
+```
+alloy("sendEvent", {
+  "renderDecisions": true,
+  "xdm": {
+    "commerce": {
+      "order": {
+        "purchaseID": "a8g784hjq1mnp3",
+        "purchaseOrderNumber": "VAU3123",
+        "currencyCode": "USD",
+        "priceTotal": 999.98
+      }
+    }
+  }
+}).then(function(results) {
+    if(results.destinations) { //Looking to see if the desitnation results are there
+        if(results.destinations.personlaizationAlias) {
+          //Code to pass the segment ids into the system that corresponds to personlaizationAlias
+        }
+        if(results.destinations.adServerAlias) {
+          //Code to pass the segment ids into the system that corresponds to adServerAlias
+        }
+     }
+   })
+  .catch(function(error) {
+    // Tracking the event failed.
+  });
+```
+
+## Data usage and governance {#data-usage-governance}
+
+All [!DNL Adobe Experience Platform] destinations are compliant with data usage policies when handling your data. For detailed information on how [!DNL Adobe Experience Platform] enforces data governance, read the [Data Governance overview](https://experienceleague.adobe.com/docs/experience-platform/data-governance/home.html).
+
+## Additional resources {#additional-resources}
+
+To learn more about Adobe Web SDK see the overview docum
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
